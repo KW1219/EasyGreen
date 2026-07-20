@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Something went wrong — EasyGreen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='Static.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="{{ url_for('index') }}" style="text-decoration:none;color:inherit;">EASY<span>GREEN</span></a>
+  </div>
+</header>
+
+<section class="error-section">
+  <div class="wrap">
+    <p class="eyebrow">Plan generation failed</p>
+    <h1>Something went wrong.</h1>
+    <p class="error-message mono">{{ message }}</p>
+    <a class="btn btn-primary" href="{{ url_for('intake') }}">Try again</a>
+  </div>
+</section>
+
+</body>
+</html>

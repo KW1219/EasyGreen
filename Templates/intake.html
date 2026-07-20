@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build your plan — EasyGreen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='Static.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="{{ url_for('index') }}" style="text-decoration:none;color:inherit;">EASY<span>GREEN</span></a>
+  </div>
+</header>
+
+<section class="intake">
+  <div class="wrap intake-wrap">
+    <p class="eyebrow">Step 1 of 1</p>
+    <h1>Tell us what you need.</h1>
+    <p class="intake-lead">This builds your 7-day plan. The more specific you are, the better the fit.</p>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="form-alert">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('plan') }}" class="intake-form">
+
+      <div class="form-block">
+        <div class="form-block-head">
+          <span class="mono">01</span>
+          <h2>Dietary restrictions</h2>
+        </div>
+        <p class="form-hint">Select any that apply.</p>
+        <div class="checkbox-grid">
+          {% for option in restriction_options %}
+          <label class="checkbox-pill">
+            <input type="checkbox" name="restrictions" value="{{ option }}">
+            <span>{{ option }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-block">
+        <div class="form-block-head">
+          <span class="mono">02</span>
+          <h2>Allergies</h2>
+        </div>
+        <p class="form-hint">Comma-separated. Meals containing these are excluded, not just penalized.</p>
+        <input type="text" name="allergies" class="text-input" placeholder="e.g. peanuts, shellfish, eggs">
+      </div>
+
+      <div class="form-block">
+        <div class="form-block-head">
+          <span class="mono">03</span>
+          <h2>Goals</h2>
+        </div>
+        <p class="form-hint">Select at least one.</p>
+        <div class="checkbox-grid">
+          {% for option in goal_options %}
+          <label class="checkbox-pill">
+            <input type="checkbox" name="goals" value="{{ option }}">
+            <span>{{ option }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-block">
+        <div class="form-block-head">
+          <span class="mono">04</span>
+          <h2>Anything else</h2>
+        </div>
+        <p class="form-hint">Optional. Budget, cooking time, ingredients to avoid, cuisines you like.</p>
+        <textarea name="notes" class="text-input" rows="3" placeholder="e.g. under 30 minutes to cook, mostly Mediterranean food"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-submit">Build my 7-day plan →</button>
+    </form>
+  </div>
+</section>
+
+</body>
+</html>

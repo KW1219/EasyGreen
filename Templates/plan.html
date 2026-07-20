@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your 7-day plan — EasyGreen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='Static.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="{{ url_for('index') }}" style="text-decoration:none;color:inherit;">EASY<span>GREEN</span></a>
+  </div>
+</header>
+
+<section class="plan-hero">
+  <div class="wrap">
+    <p class="eyebrow">Your plan</p>
+    <h1>Seven days, built for you.</h1>
+    <div class="profile-summary">
+      {% if profile.restrictions %}
+      <div class="profile-line"><span class="mono">Restrictions</span><span>{{ profile.restrictions | join(', ') }}</span></div>
+      {% endif %}
+      {% if profile.allergies %}
+      <div class="profile-line"><span class="mono">Allergies</span><span>{{ profile.allergies | join(', ') }}</span></div>
+      {% endif %}
+      <div class="profile-line"><span class="mono">Goals</span><span>{{ profile.goals | join(', ') }}</span></div>
+      {% if profile.notes %}
+      <div class="profile-line"><span class="mono">Notes</span><span>{{ profile.notes }}</span></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="plan-days">
+  <div class="wrap">
+    {% for meal in days %}
+    <div class="day-card">
+      <div class="day-card-head">
+        <div>
+          <span class="mono day-label">{{ meal.day }}</span>
+          <h2>{{ meal.meal_name }}</h2>
+        </div>
+        <div class="day-score">
+          <span class="score-num-sm">{{ meal.score }}<sup>/100</sup></span>
+          <div class="meter"><div class="meter-fill" style="width:{{ meal.score }}%;"></div></div>
+        </div>
+      </div>
+
+      <p class="day-why">{{ meal.why }}</p>
+
+      <div class="breakdown-list">
+        {% for item in meal.score_breakdown %}
+        <div class="breakdown-row">
+          <span>{{ item.label }}</span>
+          <span class="breakdown-points {{ 'positive' if item.points >= 0 else 'negative' }}">
+            {{ '+' if item.points >= 0 else '' }}{{ item.points }}
+          </span>
+        </div>
+        {% endfor %}
+      </div>
+
+      <a class="lp-source day-source" href="{{ meal.source_url }}" target="_blank" rel="noopener noreferrer">
+        {{ meal.source_name }} — view recipe →
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <h2>Want a different week?</h2>
+    <a class="btn btn-primary" href="{{ url_for('intake') }}">Build another plan</a>
+  </div>
+</footer>
+
+</body>
+</html>

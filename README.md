@@ -3,3 +3,7 @@ As me and my partner have grown, we've seen a trend in the behavior of our peers
 
 ##Our Solution
 The solution me and my partner came up with is an AI program that takes in the user's goals, restrictions, and health to come up with a schedule that tends to the specific needs of the user. The output from the AI is specifically built to be simple and easy to understand while being credible with ratings out of 100 to show how suggested the AI is with certain meals/meal plans. Also, the AI will provide summarized bullets of why a meal was suggested and links to scholarly research papers supporting the AI's claims (if possible).
+
+##Note
+Copy .env and fill in real values (at minimum, set SECRET_KEY). USE_MOCK_DATA is True by default, so the app runs and returns a sample 7-day plan without any API key or spend. Set USE_MOCK_DATA=False and add a real ANTHROPIC_API_KEY
+(get one at console.anthropic.com) to generate real, web-sourced plans.
